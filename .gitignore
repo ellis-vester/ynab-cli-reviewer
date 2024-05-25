@@ -19,3 +19,8 @@
 
 # Go workspace file
 go.work
+
+# App-specific files
+config.json
+
+__debug*
