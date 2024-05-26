@@ -46,7 +46,16 @@ func (m ReviewModel) Init() tea.Cmd {
 	return m.BudgetForm.Init()
 }
 
-func (m ReviewModel) Update(tea.Msg) (tea.Model, tea.Cmd) {
+func (m ReviewModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+
+	switch msg := msg.(type) {
+	case tea.KeyMsg:
+		switch msg.String() {
+		case "ctrl+c", "q":
+			return m, tea.Quit
+		}
+	}
+
 	return m, nil
 }
 
