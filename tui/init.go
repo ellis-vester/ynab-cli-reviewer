@@ -5,13 +5,11 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/huh"
-	"github.com/ellis-vester/ynab-cli-reviewer/config"
 	"github.com/spf13/viper"
 )
 
 type InitModel struct {
-	Form   *huh.Form
-	ApiKey string
+	Form *huh.Form
 }
 
 func NewInitModel() *InitModel {
@@ -22,8 +20,7 @@ func NewInitModel() *InitModel {
 			huh.NewInput().
 				Title("YNAB API Key").
 				Description("Saved to ~/.ynabr/config.json for future use.").
-				Key("api-key").
-				Value(&model.ApiKey),
+				Key("api-key"),
 		),
 	)
 
@@ -80,10 +77,7 @@ type apiKeySavedMsg struct {
 func saveApiKeyToConfig(apiKey string) tea.Cmd {
 	return func() tea.Msg {
 
-		conf := config.Config{
-			ApiKey: apiKey,
-		}
-		viper.Set("config", &conf)
+		viper.Set("apikey", apiKey)
 
 		err := viper.WriteConfig()
 		if err != nil {
