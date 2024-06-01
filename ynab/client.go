@@ -22,11 +22,7 @@ func (c *Ynab) GetBudgets() ([]*budget.Summary, error) {
 
 func (c *Ynab) GetPendingTransactions(budgetId string) ([]*transaction.Transaction, error) {
 
-	filter := transaction.Filter{
-		Type: transaction.StatusUnapproved.Pointer(),
-	}
-
-	transactions, err := c.Client.Transaction().GetTransactions(budgetId, &filter)
+	transactions, err := c.Client.Transaction().GetTransactions(budgetId, nil)
 	if err != nil {
 		return nil, err
 	}
